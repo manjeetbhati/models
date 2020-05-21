@@ -84,6 +84,8 @@ class eval_classifier_optimized_graph:
                             help="number of warmup steps")
     arg_parser.add_argument("--steps", type=int, default=50,
                             help="number of steps")
+    arg_parser.add_argument("--duration", type=int, default=-1,
+                            help="duration in minutes")
 
     arg_parser.add_argument(
       '--data-num-inter-threads', dest='data_num_inter_threads',
@@ -177,8 +179,9 @@ class eval_classifier_optimized_graph:
       warm_up_iteration = self.args.warmup_steps
       total_run = self.args.steps
       total_time = 0
-
-      while num_remaining_images >= self.args.batch_size and iteration < total_run:
+      startb_time = time.time()
+      start_time = time.time()
+      while (num_remaining_images >= self.args.batch_size and iteration < total_run) or (self.args.duration>0 and start_time - startb_time <= self.args.duration * 60):
         iteration += 1
         tf_filenames = None
         np_labels = None
@@ -192,6 +195,8 @@ class eval_classifier_optimized_graph:
 
         num_processed_images += self.args.batch_size
         num_remaining_images -= self.args.batch_size
+        if startb_time is None:
+            startb_time = time.time()
 
         start_time = time.time()
         predictions = infer_sess.run(output_tensor, feed_dict={input_tensor: image_np})

@@ -82,6 +82,7 @@ if __name__ == "__main__":
   parser.add_argument("--warmup_steps", type=int, default=10,
                       help="number of warmup steps")
   parser.add_argument("--steps", type=int, default=50, help="number of steps")
+  parser.add_argument("--duration", type=int, default=-1, help="duration in minutes")
   args = parser.parse_args()
 
   if args.input_graph:
@@ -101,6 +102,7 @@ if __name__ == "__main__":
   output_layer = args.output_layer
   warmup_steps = args.warmup_steps
   steps = args.steps
+  duration = args.duration
   assert steps > 10, "Benchmark steps should be at least 10."
   num_inter_threads = args.num_inter_threads
   num_intra_threads = args.num_intra_threads

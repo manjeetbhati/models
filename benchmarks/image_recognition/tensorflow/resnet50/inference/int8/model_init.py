@@ -46,6 +46,10 @@ class ModelInitializer(BaseModelInitializer):
             help="number of warmup steps",
             type=int, default=10)
         parser.add_argument(
+            "--duration", dest="duration",
+            help="duration in minutes",
+            type=int, default=-1)
+        parser.add_argument(
             "--steps", dest="steps",
             help="number of steps",
             type=int, default=50)
@@ -81,7 +85,8 @@ class ModelInitializer(BaseModelInitializer):
                " --num-intra-threads=" + str(self.args.num_intra_threads) + \
                " --batch-size=" + str(self.args.batch_size) + \
                " --warmup-steps=" + str(self.args.warmup_steps) + \
-               " --steps=" + str(self.args.steps)
+               " --steps=" + str(self.args.steps) + \
+               " --duration=" + str(self.args.duration)
 
         if self.args.calibrate:
             cmd += " --calibrate=" + str(self.args.calibrate)

@@ -261,6 +261,7 @@ function add_steps_args() {
   local epochsbtweval_arg=""
   local warmup_steps_arg=""
   local kmp_blocktime_arg=""
+  local duration_arg=""
 
   if [ -n "${steps}" ]; then
     steps_arg="--steps=${steps}"
@@ -278,11 +279,15 @@ function add_steps_args() {
     warmup_steps_arg="--warmup-steps=${warmup_steps}"
   fi
 
+  if [ -n "${duration}" ]; then
+    duration_arg="--duration=${duration}"
+  fi
+
   if [ -n "${kmp_blocktime}" ]; then
     kmp_blocktime_arg="--kmp-blocktime=${kmp_blocktime}"
   fi
 
-  echo "${steps_arg} ${trainepochs_arg} ${epochsbtweval_arg} ${warmup_steps_arg} ${kmp_blocktime_arg}"
+  echo "${steps_arg} ${trainepochs_arg} ${epochsbtweval_arg} ${warmup_steps_arg} ${kmp_blocktime_arg} ${duration_arg}"
 }
 
 function add_calibration_arg() {
@@ -509,6 +514,7 @@ function resnet50() {
 
     if [ ${PRECISION} == "int8" ]; then
         CMD="${CMD} $(add_steps_args) $(add_calibration_arg)"
+	echo "${CMD}"
         PYTHONPATH=${PYTHONPATH} CMD=${CMD} run_model
     elif [ ${PRECISION} == "fp32" ]; then
       CMD="${CMD} $(add_steps_args)"
