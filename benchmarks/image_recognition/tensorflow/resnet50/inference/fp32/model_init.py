@@ -88,7 +88,7 @@ class ModelInitializer(BaseModelInitializer):
             " --num-cores=" + str(num_cores) + \
             " --batch-size=" + str(self.args.batch_size) + \
             " --warmup-steps=" + str(self.args.warmup_steps) + \
-            " --steps=" + str(self.args.steps)
+            " --steps=" + str(self.args.steps) + \
             " --duration=" + str(self.args.duration)
 
         if self.args.data_num_inter_threads:
