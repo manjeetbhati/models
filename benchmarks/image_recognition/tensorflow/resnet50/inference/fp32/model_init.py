@@ -54,6 +54,9 @@ class ModelInitializer(BaseModelInitializer):
         arg_parser.add_argument("--steps", dest='steps',
                                 type=int, default=50,
                                 help="number of steps")
+        arg_parser.add_argument("--duration", dest='duration',
+                                type=int, default=-1,
+                                help="number of minutes")
         arg_parser.add_argument(
             '--kmp-blocktime', dest='kmp_blocktime',
             help='number of kmp block time',
@@ -86,6 +89,7 @@ class ModelInitializer(BaseModelInitializer):
             " --batch-size=" + str(self.args.batch_size) + \
             " --warmup-steps=" + str(self.args.warmup_steps) + \
             " --steps=" + str(self.args.steps)
+            " --duration=" + str(self.args.duration)
 
         if self.args.data_num_inter_threads:
             self.benchmark_command += " --data-num-inter-threads=" + str(self.args.data_num_inter_threads)
